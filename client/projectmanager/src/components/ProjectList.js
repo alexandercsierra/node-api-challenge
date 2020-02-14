@@ -2,7 +2,8 @@ import React, {useEffect, useState} from 'react'
 import axios from 'axios'
 import Project from './Project'
 
-export default function ProjectList() {
+export default function ProjectList(props) {
+    const {setProjectID} = props;
     const [projects, setProjects] = useState([])
     const [isAdding, setIsAdding] = useState(false);
     const [refresh, setRefresh] = useState(false);
@@ -47,7 +48,7 @@ export default function ProjectList() {
             </form>}
             <div>
                 {projects && projects.map(project => {
-                    return <Project key={project.id} project={project} setRefresh={setRefresh} refresh={refresh}/>
+                    return <Project key={project.id} project={project} setRefresh={setRefresh} refresh={refresh} setProjectID={setProjectID}/>
                 })}
             </div>
         </div>

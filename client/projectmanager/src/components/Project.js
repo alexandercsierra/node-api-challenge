@@ -1,9 +1,11 @@
 import React, {useState} from 'react'
 import axios from 'axios'
 import styled from 'styled-components'
+import {useHistory} from 'react-router-dom'
 
 export default function Project(props) {
-    const {project, setRefresh, refresh} = props;
+    const history = useHistory();
+    const {project, setRefresh, refresh, setProjectID} = props;
     const [isEditing, setIsEditing] = useState(false);
     const [newProject, setNewProject] = useState({
         id: project.id,
@@ -43,6 +45,10 @@ export default function Project(props) {
                 <p>{project.description}</p>
                 <button id={project.id} onClick={()=>setIsEditing(!isEditing)}>Edit</button>
                 <button onClick={deleteProject}>Delete</button>
+                <button onClick={()=>{
+                    history.push('/actions');
+                    setProjectID(project.id);
+                }}>See Actions</button>
             </div>
             {isEditing && <form onSubmit={onSubmit}>
                 <input name='name' placeholder='name' value={newProject.name} onChange={handleChange}/>
