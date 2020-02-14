@@ -3,6 +3,7 @@ const router = express.Router();
 
 const Projects = require('../data/helpers/projectModel');
 
+//gets all projects
 router.get('/', (req, res)=>{
     Projects.get()
         .then(projects => res.status(200).json(projects))
@@ -12,6 +13,7 @@ router.get('/', (req, res)=>{
         })
 })
 
+//gets project with a specific id
 router.get('/:id', validateProjectId, (req,res)=>{
     Projects.get(req.params.id)
         .then(project => res.status(200).json(project))
@@ -21,6 +23,7 @@ router.get('/:id', validateProjectId, (req,res)=>{
         })
 })
 
+//post new project
 router.post('/', validateProject, (req, res)=>{
     Projects.insert(req.body)
         .then(project=>res.status(200).json(project))
@@ -30,6 +33,8 @@ router.post('/', validateProject, (req, res)=>{
         })
 })
 
+
+//update project at a specific id
 router.put('/:id', validateProjectId, validateProject, (req, res) => {
     Projects.update(req.params.id, req.body)
         .then(project=> res.status(200).json(project))
@@ -39,6 +44,7 @@ router.put('/:id', validateProjectId, validateProject, (req, res) => {
         })
 })
 
+//deletes project with a specific id
 router.delete('/:id', validateProjectId, (req, res)=>{
     Projects.remove(req.params.id)
         .then(project => res.status(200).json(project))
@@ -50,9 +56,9 @@ router.delete('/:id', validateProjectId, (req, res)=>{
 
 
 
-//project must have a name and description
 
 
+//does a project with that id exist?
 function validateProjectId (req, res, next){
     Projects.get(req.params.id)
         .then(project => {
@@ -64,6 +70,7 @@ function validateProjectId (req, res, next){
         })
 }
 
+//project must have a name and description
 function validateProject (req, res, next) {
     const keys = Object.keys(req.body);
     if(keys.length === 0){
