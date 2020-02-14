@@ -4,13 +4,14 @@ import styled from 'styled-components'
 
 export default function Nav() {
     return (
-        <nav>
+        <nav style={{marginBottom: "4%"}}>
+            <TheLink to='/'>Home</TheLink>
             <TheLink to='/projects'>Projects</TheLink>
-            <TheLink to='/actions'>Actions</TheLink>
+            
         </nav>
     )
 }
 
 const TheLink = styled(NavLink)`
-
+    margin: 4%;
 `;
